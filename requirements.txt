@@ -1,0 +1,14 @@
+numpy
+pandas
+matplotlib
+tqdm
+
+torch
+gymnasium
+stable-baselines3
+
+streamlit
+fastapi
+uvicorn
+
+scikit-learn

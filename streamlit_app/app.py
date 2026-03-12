@@ -24,6 +24,7 @@ from backend.inference.predictor import RLAlertPredictor
 st.set_page_config(page_title="Edge AI Patient Monitor", layout="wide")
 
 st.title("🧠 Edge AI Smart Patient Monitoring System")
+st.markdown("### Reinforcement Learning Based Clinical Alert Optimization")
 
 model = RLAlertPredictor()
 
@@ -105,7 +106,12 @@ else:
         st.session_state.history,
         columns=["HR", "SysBP", "DiasBP", "RespRate", "Temp", "SpO2"]
     )
+    st.subheader("Patient Vital Trends")
+    import pandas as pd
 
+    vitals_df = pd.DataFrame(st.session_state.history)
+
+    st.line_chart(vitals_df)
     chart_placeholder.line_chart(df)
 
     action = model.predict(st.session_state.history)
@@ -116,3 +122,11 @@ else:
         alert_placeholder.warning("⚠ Alert Nurse")
     else:
         alert_placeholder.error("🚨 Escalate Immediately")
+        
+    import pandas as pd
+
+st.subheader("Alert History")
+
+alert_log_df = pd.DataFrame(st.session_state.history)
+
+st.dataframe(alert_log_df)
