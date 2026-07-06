@@ -1,9 +1,7 @@
 import os
 import sys
 
-# =========================
-# Fix Import Path (IMPORTANT)
-# =========================
+# Fix Import Path 
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 sys.path.append(BASE_DIR)
@@ -15,25 +13,16 @@ from stable_baselines3.common.callbacks import CheckpointCallback
 
 from backend.rl.patient_env import PatientEnv
 
-
-# =========================
 # Paths
-# =========================
 
 MODEL_DIR = os.path.join(BASE_DIR, "models", "ppo")
 os.makedirs(MODEL_DIR, exist_ok=True)
 
-
-# =========================
 # Environment
-# =========================
 
 env = make_vec_env(PatientEnv, n_envs=1)
 
-
-# =========================
 # PPO Model
-# =========================
 
 model = PPO(
     "MlpPolicy",
@@ -42,10 +31,7 @@ model = PPO(
     tensorboard_log="./ppo_tensorboard/"
 )
 
-
-# =========================
 # Checkpoint Callback
-# =========================
 
 checkpoint_callback = CheckpointCallback(
     save_freq=5000,
@@ -53,10 +39,7 @@ checkpoint_callback = CheckpointCallback(
     name_prefix="ppo_patient"
 )
 
-
-# =========================
 # Train
-# =========================
 
 model.learn(
     total_timesteps=50000,
@@ -65,4 +48,4 @@ model.learn(
 
 model.save(os.path.join(MODEL_DIR, "ppo_patient_final"))
 
-print("Training Complete ✅")
+print("Training Complete ")
