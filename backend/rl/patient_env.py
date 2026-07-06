@@ -20,9 +20,7 @@ class PatientEnv(gym.Env):
         data = np.load(DATA_PATH)
         states = data["states"]
 
-        # =========================
-        # 🔥 CLEAN STATES (CRITICAL)
-        # =========================
+        # CLEAN STATES
 
         states = np.nan_to_num(states, nan=0.0, posinf=0.0, neginf=0.0)
 
